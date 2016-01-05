@@ -9,13 +9,13 @@ from opennsa import __version__
 # nasty global for relocation
 RELOCATE = None
 
+
 class InstallOpenNSA(install):
 
     def finalize_options(self):
         install.finalize_options(self)
 
         global RELOCATE ; RELOCATE = self.home
-
 
 
 class InstallOpenNSAData(install_data):
@@ -27,7 +27,7 @@ class InstallOpenNSAData(install_data):
 
         # relocation
         if RELOCATE:
-            print 'relocating to %s' % RELOCATE
+            print('relocating to %s' % RELOCATE)
             for (prefix, files) in reversed(self.data_files):
                 if prefix.startswith('/'):
                     new_prefix = os.path.join(RELOCATE, prefix[1:])
@@ -40,13 +40,13 @@ class InstallOpenNSAData(install_data):
                 for basefile in files:
                     fn = os.path.join(prefix, os.path.basename(basefile))
                     if os.path.exists(fn):
-                        print 'Skipping installation of %s (already exists)' % fn
+                        print('Skipping installation of %s (already exists)' % fn)
                         files.remove(basefile)
             if not files:
                 self.data_files.remove((prefix, []))
 
 
-cmdclasses = {'install': InstallOpenNSA, 'install_data': InstallOpenNSAData} 
+cmdclasses = {'install': InstallOpenNSA, 'install_data': InstallOpenNSAData}
 
 
 setup(name='opennsa',
@@ -76,7 +76,7 @@ setup(name='opennsa',
         ('bin',                     ['onsa']),
         ('/etc',                    ['datafiles/opennsa.conf']),
         ('/etc/init.d',             ['datafiles/opennsa']),
-      ]
+      ], requires=['twistar']
 
 )
 

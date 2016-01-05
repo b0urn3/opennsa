@@ -55,7 +55,8 @@ but creating the topology specification is still somewhat tricky. Look at the
 Command line tool:
 
 Make a reservation:
-onsa reserve -u http://localhost:9080/NSI/services/ConnectionService -p OpenNSA-TestClient -r Aruba -s Aruba:A1 -d Aruba:A4
+./onsa reserve -u http://localhost:9080/NSI/services/ConnectionService -p OpenNSA-TestClient -r Aruba -s Aruba:A1 -d Aruba:A4 -s 2016-01-01T22:32:52 -e 2016-01-15T22:32:52 -b 2 -v
+
 
 Do a ./onsa --help for more information.
 

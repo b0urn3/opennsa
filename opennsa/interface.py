@@ -12,9 +12,7 @@ Copyright: NORDUnet (2011)
 from zope.interface import Interface
 
 
-
 class INSIProvider(Interface):
-
     def reserve(header, connection_id, global_reservation_id, description, service_params):
         pass
 
@@ -43,9 +41,7 @@ class INSIProvider(Interface):
         pass
 
 
-
 class INSIRequester(Interface):
-
     def reserveConfirmed(header, connection_id, global_reservation_id, description, criteria):
         pass
 
@@ -98,7 +94,6 @@ class INSIRequester(Interface):
         pass
 
 
-
 class IPlugin(Interface):
     """
     Interface for plugins.
@@ -124,7 +119,6 @@ class IPlugin(Interface):
         Config dictionary and context factory (maybe None) is provided as arguments.
         """
 
-
     def connectionRequest(header, connection_id, global_reservation_id, description, criteria):
         """
         Called when a new connection request is made.
@@ -139,7 +133,6 @@ class IPlugin(Interface):
                  not be created.
         """
 
-
     def createConnectionId():
         """
         Creates a connection id for a new request. This enables assignment of service identifiers
@@ -148,7 +141,6 @@ class IPlugin(Interface):
         @rtype: C{defer.Deferred}
         @return: A deferred which should result in a string.
         """
-
 
     def prunePath(paths):
         """
@@ -159,7 +151,6 @@ class IPlugin(Interface):
         @return: A deferred, which should result a list of paths.
         """
 
-
     def connectionCreated(connection):
         """
         Called when an connection has been created (committed).
@@ -169,7 +160,6 @@ class IPlugin(Interface):
                  Nothing will happen on failure.
         """
 
-
     def connectionTerminated(connection):
         """
         Called when an connection has been terminated.
@@ -178,4 +168,3 @@ class IPlugin(Interface):
         @return: A deferred. Should return None if successfull, otherwise fail.
                  Nothing will happen on failure.
         """
-

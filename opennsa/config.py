@@ -33,6 +33,7 @@ BLOCK_ARGIA      = 'argia'
 BLOCK_BROCADE    = 'brocade'
 BLOCK_DELL       = 'dell'
 BLOCK_NCSVPN     = 'ncsvpn'
+BLOCK_SDNCREST  = 'rest'
 
 # service block
 NETWORK_NAME     = 'network'     # mandatory
@@ -47,6 +48,7 @@ PLUGIN           = 'plugin'
 
 # database
 DATABASE                = 'database'    # mandatory
+DATABASE_HOST           = 'dbhost'      # optional
 DATABASE_USER           = 'dbuser'      # mandatory
 DATABASE_PASSWORD       = 'dbpassword'  # can be none (os auth)
 
@@ -107,6 +109,11 @@ DELL_PASSWORD           = _SSH_PASSWORD
 NCS_SERVICES_URL        = 'url'
 NCS_USER                = 'user'
 NCS_PASSWORD            = 'password'
+
+SDNCREST_URL = 'url'
+SDNCREST_USER = 'user'
+SDNCREST_PASS = 'pass'
+SDNCREST_VTN = 'vtn_name'
 
 
 
@@ -218,6 +225,12 @@ def readVerifyConfig(cfg):
     except ConfigParser.NoOptionError:
         vc[DATABASE_PASSWORD] = None
 
+    try:
+        vc[DATABASE_HOST] = cfg.get(BLOCK_SERVICE, DATABASE_HOST)
+    except ConfigParser.NoOptionError:
+        vc[DATABASE_HOST] = None
+
+
     # we always extract certdir and verify as we need that for performing https requests
     try:
         certdir = cfg.get(BLOCK_SERVICE, CERTIFICATE_DIR)
@@ -265,7 +278,7 @@ def readVerifyConfig(cfg):
             continue
 
         if ':' in section:
-            backend_type, name = section.split(':',2)
+            backend_type, name = section.split(':', 2)
         else:
             backend_type = section
             name = ''
@@ -273,7 +286,9 @@ def readVerifyConfig(cfg):
         if name in backends:
             raise ConfigurationError('Can only have one backend named "%s"' % name)
 
-        if backend_type in (BLOCK_DUD, BLOCK_JUNIPER_EX, BLOCK_JUNOS, BLOCK_FORCE10, BLOCK_BROCADE, BLOCK_DELL, BLOCK_NCSVPN):
+        if backend_type in (BLOCK_DUD, BLOCK_JUNIPER_EX, BLOCK_JUNOS,
+                            BLOCK_FORCE10, BLOCK_BROCADE, BLOCK_DELL,
+                            BLOCK_NCSVPN, BLOCK_SDNCREST):
             backend_conf = dict( cfg.items(section) )
             backend_conf['_backend_type'] = backend_type
             backends[name] = backend_conf

@@ -18,7 +18,6 @@ from opennsa.discovery import service as discoveryservice, fetcher
 from opennsa.protocols import nsi2
 
 
-
 def setupBackend(backend_cfg, network_name, nrm_ports, parent_requester):
 
     bc = backend_cfg.copy()
@@ -56,6 +55,10 @@ def setupBackend(backend_cfg, network_name, nrm_ports, parent_requester):
     elif backend_type == config.BLOCK_NCSVPN:
         from opennsa.backends import ncsvpn
         BackendConstructer = ncsvpn.NCSVPNBackend
+
+    elif backend_type == config.BLOCK_SDNC_REST:
+        from opennsa.backends import sdncrest
+        BackendConstructer = sdncrest.SDNCRESTBackend
 
     else:
         raise config.ConfigurationError('No backend specified')
@@ -108,7 +111,11 @@ class OpenNSAService(twistedservice.MultiService):
             vc[config.HOST] = socket.getfqdn()
 
         # database
-        database.setupDatabase(vc[config.DATABASE], vc[config.DATABASE_USER], vc[config.DATABASE_PASSWORD])
+        database.setupDatabase(vc[config.DATABASE_HOST],
+                               vc[config.DATABASE],
+                               vc[config.DATABASE_USER],
+                               vc[config.DATABASE_PASSWORD]
+                               )
 
         # base names
         base_name = vc[config.NETWORK_NAME]
