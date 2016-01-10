@@ -33,7 +33,7 @@ BLOCK_ARGIA      = 'argia'
 BLOCK_BROCADE    = 'brocade'
 BLOCK_DELL       = 'dell'
 BLOCK_NCSVPN     = 'ncsvpn'
-BLOCK_SDNCREST  = 'rest'
+BLOCK_SDNCREST  = 'sdncrest'
 
 # service block
 NETWORK_NAME     = 'network'     # mandatory
@@ -113,7 +113,12 @@ NCS_PASSWORD            = 'password'
 SDNCREST_URL = 'url'
 SDNCREST_USER = 'user'
 SDNCREST_PASS = 'pass'
+SDNCREST_CNTRL_ID = 'controller_id'
+SDNCREST_CNTRL_IP = 'controller_ip'
+SDNCREST_CNTRL_TYPE = 'controller_type'
+SDNCREST_CNTRL_VERSION = 'controller_version'
 SDNCREST_VTN = 'vtn_name'
+SDNCREST_API_TYPE = 'api_type'
 
 
 

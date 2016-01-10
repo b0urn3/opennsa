@@ -56,7 +56,7 @@ def setupBackend(backend_cfg, network_name, nrm_ports, parent_requester):
         from opennsa.backends import ncsvpn
         BackendConstructer = ncsvpn.NCSVPNBackend
 
-    elif backend_type == config.BLOCK_SDNC_REST:
+    elif backend_type == config.BLOCK_SDNCREST:
         from opennsa.backends import sdncrest
         BackendConstructer = sdncrest.SDNCRESTBackend
 

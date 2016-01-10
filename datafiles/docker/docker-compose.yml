@@ -1,4 +1,0 @@
-db:
-  build: '/home/rzahradnicek/opennsa/datafiles/docker/db'
-  ports:
-    - 0.0.0.0:5432:5432
